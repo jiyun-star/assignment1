@@ -14,7 +14,7 @@ services:
       - MONGO_PASS=secret
       - MONGO_HOST=mongodb
       - MONGODB_URI=mongodb://admin:secret@mongodb:27017
-      - ENABLE_WRITING_HANDLERS='false'
+      - ENABLE_WRITING_HANDLERS=false
       - REDIS_URI=redis://redis:6379
     networks:
       - mongo-network
