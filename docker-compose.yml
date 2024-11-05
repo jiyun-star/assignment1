@@ -23,7 +23,8 @@ services:
       - ENABLE_WRITING_HANDLERS=false
       - REDIS_URI=redis://redis:6379
     networks:
-      - mongo-network
+      - net1
+      - net2
     depends_on:
       - mongodb
       - redis
@@ -35,7 +36,8 @@ services:
       - MONGO_INITDB_ROOT_USERNAME=admin
       - MONGO_INITDB_ROOT_PASSWORD=secret
     networks:
-      - mongo-network
+      - net2
+      - net3
 
   mongo-express:
     container_name: mongo-express
@@ -48,7 +50,7 @@ services:
       - ME_CONFIG_MONGODB_ADMINPASSWORD=secret
       - ME_CONFIG_MONGODB_SERVER=mongodb
     networks:
-      - mongo-network
+      - net3
     depends_on:
       - mongodb
 
@@ -59,4 +61,4 @@ services:
     ports:
       - "6379:6379"  
     networks:
-      - mongo-network
+      - net1
