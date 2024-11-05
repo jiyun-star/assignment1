@@ -40,6 +40,7 @@ services:
       - net3
     volumes:
       - ./data:/data/db
+      - ./seeding.js:/docker-entrypoint-initdb.d/seeding.js
 
   mongo-express:
     container_name: mongo-express
