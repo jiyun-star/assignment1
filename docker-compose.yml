@@ -1,38 +1,37 @@
 version: '3'
 networks:
-  profile-network:
+  mongo-network:
     external: true
     name: 'mongo-network'
 
 services:
- app:
-    container_name: movies-api
+  api:
     image: doconnor/movies-api:1.0
+    container_name: movies-api4
     build: .      # Location of Dockerfile
     ports:
       - '9000:9000'
     environment:
       - MONGO_PASS=secret
-      - MONGO_HOST=mongodb 
-      - MONGODB_URI=mongodb://admin:secret@domain-name:27017.
-      - REDIS_URI=redis://domain-name
+      - MONGO_HOST=mongodb
+      - MONGODB_URI=mongodb://admin:secret@mongodb:27017
       - ENABLE_WRITING_HANDLERS='false'
     networks:
-       - profile-network
+      - mongo-network
     depends_on:
       - mongodb
 
   mongodb:
-    container_name: mongoDB
+    container_name: mongodb4
     image: mongo:8.0-rc
     environment:
       - MONGO_INITDB_ROOT_USERNAME=admin
       - MONGO_INITDB_ROOT_PASSWORD=secret
     networks:
-       - profile-network
+      - mongo-network
 
   mongo-express:
-    container_name: mongo-express
+    container_name: mongo-express4
     image: mongo-express:1.0-20-alpine3.19
     restart: always # fixes MongoNetworkError caused by mongodb not being ready when mongo-express starts.
     ports:
@@ -42,6 +41,6 @@ services:
       - ME_CONFIG_MONGODB_ADMINPASSWORD=secret
       - ME_CONFIG_MONGODB_SERVER=mongodb
     networks:
-       - profile-network
+      - mongo-network
     depends_on:
       - mongodb
