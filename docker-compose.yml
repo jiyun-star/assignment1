@@ -1,8 +1,14 @@
 version: '3'
 networks:
-  mongo-network:
+  net1:
     external: true
-    name: 'mongo-network'
+    name: 'net1'
+  net2:
+    external: true
+    name: 'net2'
+  net3:
+    external: true
+    name: 'net3'
 
 services:
   api:
