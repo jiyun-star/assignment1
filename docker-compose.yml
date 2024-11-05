@@ -38,6 +38,8 @@ services:
     networks:
       - net2
       - net3
+    volumes:
+      - ./data:/data/db
 
   mongo-express:
     container_name: mongo-express
